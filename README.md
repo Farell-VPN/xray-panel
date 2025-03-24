@@ -1,6 +1,6 @@
 # Autoscript Panel Marzban  
 
-Proyek ini merupakan modifikasi dari [Marzban](https://github.com/Gozargah/Marzban) dengan tambahan konfigurasi **Nginx** untuk mendukung koneksi **WebSocket**, **HTTP Upgrade**, dan **XHTTP TLA Quic**.  
+Proyek ini merupakan modifikasi dari [Marzban](https://github.com/Gozargah/Marzban) dengan tambahan konfigurasi **Nginx** untuk mendukung koneksi **WebSocket**, **HTTP Upgrade**, dan **XHTTP TLS Quic**.  
 
 > **Disclaimer**  
 > Proyek ini hanya untuk pembelajaran dan komunikasi pribadi. Mohon jangan digunakan untuk tujuan ilegal.  
