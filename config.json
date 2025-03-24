@@ -1,0 +1,347 @@
+{
+  "log": {
+    "loglevel": "warning"
+  },
+  "dns": {
+    "servers": [
+      "1.1.1.1",
+      "1.0.0.1",
+      "8.8.8.8",
+      "8.8.4.4",
+      "9.9.9.9",
+      "149.112.112.112",
+      "208.67.222.222",
+      "208.67.220.220",
+      "8.26.56.26",
+      "8.20.247.20",
+      "64.6.64.6",
+      "64.6.65.6",
+      "77.88.8.8",
+      "77.88.8.1",
+      "101.101.101.101",
+      "101.102.103.104",
+      "185.228.168.9",
+      "185.228.169.9",
+      "156.154.70.1",
+      "156.154.71.1",
+      "195.46.39.39",
+      "195.46.39.40",
+      "76.76.19.19",
+      "76.223.122.150",
+      "76.76.2.0",
+      "76.76.10.0",
+      "127.0.0.1"
+    ],
+    "tag": "dns-in"
+  },
+  "routing": {
+    "domainStrategy": "IPIfNonMatch",
+    "rules": [
+      {
+        "type": "field",
+        "inboundTag": [
+          "dns-in"
+        ],
+        "outboundTag": "dns-out"
+      },
+      {
+        "type": "field",
+        "protocol": [
+          "bittorent"
+        ],
+        "outboundTag": "block"
+      }
+    ]
+  },
+  "inbounds": [
+    {
+      "tag": "VLESS_WS",
+      "listen": "127.0.0.1",
+      "port": 20651,
+      "protocol": "vless",
+      "settings": {
+        "clients": [],
+        "decryption": "none"
+      },
+      "streamSettings": {
+        "network": "ws",
+        "wsSettings": {
+          "path": "/vlessws"
+        },
+        "security": "none"
+      },
+      "sniffing": {
+        "enabled": true,
+        "destOverride": [
+          "fakedns+others",
+          "http",
+          "tls",
+          "quic"
+        ]
+      }
+    },
+    {
+      "tag": "VMESS_WS",
+      "listen": "127.0.0.1",
+      "port": 20652,
+      "protocol": "vmess",
+      "settings": {
+        "clients": []
+      },
+      "streamSettings": {
+        "network": "ws",
+        "security": "none",
+        "wsSettings": {
+          "path": "/vmessws"
+        }
+      },
+      "sniffing": {
+        "enabled": true,
+        "destOverride": [
+          "fakedns+others",
+          "http",
+          "tls",
+          "quic"
+        ]
+      }
+    },
+    {
+      "tag": "TROJAN_WS",
+      "listen": "127.0.0.1",
+      "port": 20653,
+      "protocol": "trojan",
+      "settings": {
+        "clients": []
+      },
+      "streamSettings": {
+        "network": "ws",
+        "wsSettings": {
+          "path": "/trojanws"
+        },
+        "security": "none"
+      },
+      "sniffing": {
+        "enabled": true,
+        "destOverride": [
+          "fakedns+others",
+          "http",
+          "tls",
+          "quic"
+        ]
+      }
+    },
+    {
+        "tag": "SHADOWSOCKS_WS",
+        "listen": "127.0.0.1",
+        "port": "10004",
+        "protocol": "shadowsocks",
+        "settings": {
+           "clients": [
+           {
+           "method": "aes-128-gcm",
+           "password": "1d1c1d94-6987-4658-a4dc-8821a30fe7e0"
+           }
+          ],
+          "network": "tcp,udp"
+       },
+       "streamSettings":{
+          "network": "ws",
+             "wsSettings": {
+               "path": "/ss-ws"
+           }
+        }
+     },
+    {
+      "tag": "VLESS_HTTP_UPGRADE",
+      "listen": "127.0.0.1",
+      "port": 2021,
+      "protocol": "vless",
+      "settings": {
+        "clients": [],
+        "decryption": "none"
+      },
+      "streamSettings": {
+        "network": "httpupgrade",
+        "security": "none",
+        "httpupgradeSettings": {
+          "path": "/vlesshu"
+        }
+      },
+      "sniffing": {
+        "enabled": true,
+        "destOverride": [
+          "fakedns+others",
+          "http",
+          "tls",
+          "quic"
+        ]
+      }
+    },
+    {
+      "tag": "VMESS_HTTP_UPGRADE",
+      "listen": "127.0.0.1",
+      "port": 2022,
+      "protocol": "vmess",
+      "settings": {
+        "clients": []
+      },
+      "streamSettings": {
+        "network": "httpupgrade",
+        "security": "none",
+        "httpupgradeSettings": {
+          "path": "/vmesshu"
+        }
+      },
+      "sniffing": {
+        "enabled": true,
+        "destOverride": [
+          "fakedns+others",
+          "http",
+          "tls",
+          "quic"
+        ]
+      }
+    },
+    {
+      "tag": "TROJAN_HTTP_UPGRADE",
+      "listen": "127.0.0.1",
+      "port": 2023,
+      "protocol": "trojan",
+      "settings": {
+        "clients": []
+      },
+      "streamSettings": {
+        "network": "httpupgrade",
+        "security": "none",
+        "httpupgradeSettings": {
+          "path": "/trojanhu"
+        }
+      },
+      "sniffing": {
+        "enabled": true,
+        "destOverride": [
+          "fakedns+others",
+          "http",
+          "tls",
+          "quic"
+        ]
+      }
+    },
+        {
+      "tag": "TROJAN_XHTTP",
+      "listen": "127.0.0.1",
+      "port": 4001,
+      "protocol": "trojan",
+      "settings": {
+        "clients": []
+      },
+      "streamSettings": {
+        "network": "xhttp",
+        "xhttpSettings": {
+          "mode": "auto",
+          "path": "/xtrojan"
+        }
+      },
+      "sniffing": {
+        "enabled": true,
+        "destOverride": [
+          "fakedns+others",
+          "http",
+          "tls",
+          "quic"
+        ],
+        "routeOnly": true
+      }
+    },
+    {
+      "tag": "VMESS_XHTTP",
+      "listen": "127.0.0.1",
+      "port": 4002,
+      "protocol": "vmess",
+      "settings": {
+        "clients": []
+      },
+      "streamSettings": {
+        "network": "xhttp",
+        "xhttpSettings": {
+          "mode": "auto",
+          "path": "/xvmess"
+        }
+      },
+      "sniffing": {
+        "enabled": true,
+        "destOverride": [
+          "fakedns+others",
+          "http",
+          "tls",
+          "quic"
+        ],
+        "routeOnly": true
+      }
+    },
+    {
+      "tag": "VLESS_XHTTP",
+      "listen": "127.0.0.1",
+      "port": 4003,
+      "protocol": "vless",
+      "settings": {
+        "clients": [],
+        "decryption": "none"
+      },
+      "streamSettings": {
+        "network": "xhttp",
+        "xhttpSettings": {
+          "mode": "auto",
+          "path": "/xvless"
+        }
+      },
+      "sniffing": {
+        "enabled": true,
+        "destOverride": [
+          "fakedns+others",
+          "http",
+          "tls",
+          "quic"
+        ],
+        "routeOnly": true
+      }
+    }
+  ],
+  "outbounds": [
+    {
+      "tag": "direct",
+      "protocol": "freedom",
+      "settings": {
+        "domainStrategy": "UseIPv4"
+      }
+    },
+    {
+      "tag": "block",
+      "protocol": "blackhole",
+      "settings": {
+        "response": {
+          "type": "http"
+        }
+      }
+    },
+   {
+      "tag": "dns-out",
+      "protocol": "dns",
+      "settings": {
+        "nonIPQuery": "skip"
+      }
+    },
+    {
+      "tag": "warp",
+      "protocol": "socks",
+      "settings": {
+        "servers": [
+          {
+            "address": "127.0.0.1",
+            "port": 40000
+          }
+        ]
+      }
+    }
+  ]
+}
